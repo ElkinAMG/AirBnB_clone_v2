@@ -2,10 +2,13 @@
 """ Module for testing file storage"""
 import unittest
 from models.base_model import BaseModel
-from models import storage
+from models.state import State
+from models import storage, t_storage
 import os
 
 
+@unittest.skipIf(t_storage == 'db', "Skipping test \
+because of the storagement.")
 class test_fileStorage(unittest.TestCase):
     """ Class to test the file storage method """
 
@@ -41,6 +44,14 @@ class test_fileStorage(unittest.TestCase):
         temp = storage.all()
         self.assertIsInstance(temp, dict)
 
+    def test_new_all(self):
+        """___objects is propeely returned with the new features"""
+        new_state = State()
+        new_state.name = "San Francisco"
+        another_state = State()
+        temp = storage.all(State)
+        self.assertTrue(len(temp.keys()) == 2)
+
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
         new = BaseModel()
@@ -59,6 +70,14 @@ class test_fileStorage(unittest.TestCase):
         new = BaseModel()
         storage.save()
         self.assertTrue(os.path.exists('file.json'))
+
+    def test_delete(self):
+        """ FileStorage delete method """
+        new = State()
+        a_new = BaseModel()
+        storage.delete(a_new)
+        temp = storage.all()
+        self.assertTrue(len(temp.keys()) == 1)
 
     def test_reload(self):
         """ Storage file is successfully loaded to __objects """
