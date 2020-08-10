@@ -30,7 +30,7 @@ class FileStorage:
             temp.update(FileStorage.__objects)
             for key, val in temp.items():
                 temp[key] = val.to_dict()
-                json.dump(temp, f)
+            json.dump(temp, f)
 
     def delete(self, obj=None):
         """
