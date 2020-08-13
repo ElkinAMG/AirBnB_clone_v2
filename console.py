@@ -122,10 +122,9 @@ class HBNBCommand(cmd.Cmd):
         elif list_split[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
         else:            
-            new_instance = eval(list_split[0] + '()')
-            list_split.remove(list_split[0])
+            new_instance = eval(list_split[0] + '()')            
 
-            for i in range(len(list_split)):
+            for i in range(len(1, list_split)):
                 key_val_list = list_split[i].split('=')                
                 key_val_list[1] = key_val_list[1].replace('_', ' ')
                 setattr(new_instance, key_val_list[0], key_val_list[1])
