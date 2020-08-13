@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.__init__ import storage
 from models.user import User
 from models.place import Place
@@ -18,11 +18,11 @@ class HBNBCommand(cmd.Cmd):
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
-    classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+    classes = [
+               'BaseModel', 'User', 'Place',
+               'State', 'City', 'Amenity',
+               'Review'
+              ]
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
              'number_rooms': int, 'number_bathrooms': int,
@@ -114,45 +114,25 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """ Create an object of any class"""
-        if not arg:
+        """Creates a new instance of Basemodel,
+        saves it and prints the id"""
+        list_split = arg.split()
+        if len(list_split) == 0:
             print("** class name missing **")
-            return
-
-        args = arg.split()
-        parameters = {}
-
-        # Add parameters
-        for param in args[1:]:
-            splitted = param.split("=")
-            if splitted[0] not in HBNBCommand.types:
-                if splitted[1].startswith('"') and splitted[1].endswith('"'):
-                    splitted[1] = splitted[1][1:-1]
-                    splitted[1] = splitted[1].replace('_', ' ')
-                    splitted[1] = splitted[1].replace('"', '\"')
-                    parameters[splitted[0]] = splitted[1]
-            else:
-                if type(HBNBCommand.types[splitted[0]]()) is float:
-                    if '.' in splitted[1]:
-                        parameters[splitted[0]] = HBNBCommand.types[
-                            splitted[0]](splitted[1])
-                if type(HBNBCommand.types[splitted[0]]()) is int:
-                    parameters[splitted[0]] = HBNBCommand.types[
-                        splitted[0]](splitted[1])
-
-        if args[0] not in HBNBCommand.classes:
+        elif list_split[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-            return
-        new_instance = HBNBCommand.classes[args[0]]()
+        else:            
+            new_instance = eval(list_split[0] + '()')
+            list_split.remove(list_split[0])
 
-        for attr in parameters.keys():
-            if attr in dir(new_instance):
-                setattr(new_instance, attr, parameters[attr])
-
-        # Save
-        storage.save()
-        print(new_instance.id)
-        storage.save()
+            for i in range(len(list_split)):
+                key_val_list = list_split[i].split('=')
+                key_val_list[0] = key_val_list[0].replace('_', ' ')
+                key_val_list[1] = key_val_list[1].replace('_', ' ')
+                setattr(new_instance, key_val_list[0], key_val_list[1])
+               
+            new_instance.save()
+            print(new_instance.id)        
 
     def help_create(self):
         """ Help information for the create method """
