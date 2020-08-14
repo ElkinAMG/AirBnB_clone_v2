@@ -21,6 +21,7 @@ class TestAmenity(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Amenity testing setup.
+
         Temporarily renames any existing file.json.
         Resets FileStorage objects dictionary.
         Creates FileStorage, DBStorage and Amenity instances for testing.

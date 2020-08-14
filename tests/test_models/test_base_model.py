@@ -14,6 +14,7 @@ class TestBaseModel(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """BaseModel testing setup.
+
         Temporarily renames any existing file.json.
         Resets FileStorage objects dictionary.
         Creates a BaseModel instance for testing.
@@ -29,6 +30,7 @@ class TestBaseModel(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """BaseModel testing teardown.
+
         Restore original file.json.
         Delete the test BaseModel instance.
         """
