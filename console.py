@@ -17,7 +17,7 @@ class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter."""
 
     prompt = "(hbnb) "
-    __classes = {
+    __classes = [
         "BaseModel",
         "User",
         "State",
@@ -25,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
         "Amenity",
         "Place",
         "Review"
-    }
+    ]
 
     def emptyline(self):
         """Ignore empty spaces."""
