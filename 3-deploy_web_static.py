@@ -13,6 +13,7 @@ env.hosts = [
     '107.21.161.159'
 ]
 
+
 def do_pack():
     """generates a tgz archive"""
     try:
