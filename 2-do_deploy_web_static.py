@@ -26,12 +26,12 @@ def do_deploy(archive_path):
                 filename.split('.')[0]
             )
 
-            put(archive_path, '/tmp/')
+            put(archive_path, '/tmp')
 
             run('mkdir -p {}'.format(un_path))
 
-            run('tar -xzf /tmp/{} -C {}'.format(filename, un_path))
-            run('rm /tmp/{}'.format(filename))
+            run('tar -xzf /tmp/{}.tgz -C {}'.format(filename, un_path))
+            run('rm /tmp/{}.tgz'.format(filename))
             run('rm -rf /data/web_static/current')
             run('ln -s {} /data/web_static/current'.format(un_path))
 
