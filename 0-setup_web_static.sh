@@ -6,7 +6,7 @@ apt-get install -y nginx
 
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared/
-echo "Holberton School" > /data/web_static/releases/test/index.html
+echo "Hello World!" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 chown -R ubuntu /data/
@@ -25,7 +25,7 @@ printf %s "server {
     }
 
     location /redirect_me {
-        return 301 http://cuberule.com/;
+        return 301 http://https://www.youtube.com/watch?v=_A0Beo0M-tQ&list=PL9w83ZbzpNSOu-zX-WrTQsh8kK8AneBnn&index=44/;
     }
 
     error_page 404 /404.html;
