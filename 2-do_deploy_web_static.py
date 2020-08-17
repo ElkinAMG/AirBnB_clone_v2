@@ -4,7 +4,7 @@ Distributes an archive to your web servers.
 """
 
 from fabric.api import put, run, env
-from os.path import isfile
+from os.path import exists
 
 
 env.hosts = [
@@ -19,7 +19,7 @@ def do_deploy(archive_path):
 
     ret = False
 
-    if isfile(archive_path):
+    if exists(archive_path):
         try:
             filename = archive_path.split('/')[-1]
             un_path = "/data/web_static/releases/{}".format(
