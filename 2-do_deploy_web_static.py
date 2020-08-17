@@ -14,8 +14,8 @@ env.hosts = [
 
 
 def do_deploy(archive_path):
-    "Make a deploy to a remote server.
-    "
+    """Make a deploy to a remote server.
+    """
 
     ret = False
 
