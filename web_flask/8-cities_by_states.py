@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route('/cities_by_states', strict_slashes=False)
-def state_list():
+def cities_by_state():
     """Displays a HTML with a list of states.
     """
     states = storage.all("State").values()
@@ -17,7 +17,7 @@ def state_list():
 
 
 @app.teardown_appcontext
-def teardown_db():
+def teardown_db(exception):
     """Close connection with DB.
     """
     storage.close()

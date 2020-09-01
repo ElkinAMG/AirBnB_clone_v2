@@ -56,7 +56,12 @@ def numbertemplate(n):
 def numberaddoreven(n):
     """Some comments explaining what this function does.
     """
-    return render_template('6-number_odd_or_even.html', number=n)
+    if n % 2 == 0:
+        desc = "even"
+    else:
+        desc = "odd"
+    return render_template('6-number_odd_or_even.html', number=n, desc=desc)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
